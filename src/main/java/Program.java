@@ -2,6 +2,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.WriteAbortedException;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Scanner;
@@ -34,16 +35,39 @@ import java.util.Scanner;
  */
 
 public class Program {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         inputString();
     }
 
-    public static void inputString() throws IOException {
+    public static void inputString() {
         Scanner in = new Scanner(System.in);
         System.out.println("Введите ваши данные в виде: Фамилия Имя Отчество датарождения номертелефона пол");
 
+//        try {
+//            int element = sc.nextInt();
+//            System.out.println("Element in the given index is :: "+myArray[element]);
+//        } catch(ArrayIndexOutOfBoundsException e) {
+//            System.out.println("The index you have entered is invalid");
+//            System.out.println("Please enter an index number between 0 and 6");
+//        }
         String line = in.nextLine();
         String[] dt = line.split(" ");
+        if (dt[0].isEmpty()) System.out.println("пусто");
+        try {
+            if (dt[0].isEmpty() || dt[1].isEmpty() || dt[2].isEmpty() || dt[3].isEmpty() || dt[4].isEmpty() || dt[5].isEmpty())
+                throw new ArrayIndexOutOfBoundsException();
+            }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("введены нулевые значения");
+            inputString();
+        }
+
+//            try {
+//                if (line.isEmpty() || dt[0].isEmpty() || dt[1].isEmpty() || dt[0].length() == 0 || dt[1].length() == 0)
+//                    throw new ArrayIndexOutOfBoundsException();
+//    }catch (ArrayIndexOutOfBoundsException e) {
+//                System.out.println("Переделай");
+//            }
+
         String sur = (dt[0]);
         String name = (dt[1]);
         String surN = (dt[2]);
@@ -52,24 +76,27 @@ public class Program {
         String gender = (dt[5]);
         String f = "f";
         String m = "m";
+
         try {
+
             if (tel.length() < 10 || tel.length() > 10)
                 throw new RuntimeException();
-//            if (sur.length() < 1 || name.length() < 1 || surN == null || born == null || tel == null || gender == null)
-//                throw new ArrayIndexOutOfBoundsException();
+
+            if (sur.length() < 1 || name.length() < 1 || surN == null || born == null || tel == null || gender == null)
+                throw new ArrayIndexOutOfBoundsException();
+
             if (gender.length() != 1 || !gender.equals(f) && !gender.equals(m))
                 throw new InvalidPropertiesFormatException("введены неверные данные по полу");
-//            if (gender != "f" && gender != "m")
-//                throw new InvalidPropertiesFormatException("введены неверные данные по полу");
+
+        } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Введите 6 верных аргументов");
+
         } catch (RuntimeException e) {
             System.out.println("введите корректно номер телефона 10 цифр подряд, - например 9267004070");
             inputString();
 
-//        }catch (ArrayIndexOutOfBoundsException e){
-//                System.out.println("Введите 6 верных аргументов");
-//
         } catch (InvalidPropertiesFormatException e) {
-            System.out.println("Введите верные данные по полу: один символ f или m");
+            System.out.println("Введите верные данные для gender: один символ f или m");
             inputString();
         }
 
