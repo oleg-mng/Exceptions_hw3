@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -29,25 +31,27 @@ import java.util.Scanner;
  */
 
 public class Program {
-    public static void main(String[] args) {
-        inputFloat();
+    public static void main(String[] args) throws IOException {
+        inputString();
     }
-    public static void inputFloat(){
+    public static void inputString() throws IOException {
         Scanner in = new Scanner(System.in);
-        System.out.println("Введите дробное число типа float (например: '1,7')");
-//        float k = in.nextFloat();
+        System.out.println("Введите ваши данные в виде: Фамилия Имя Отчество датарождения номертелефона пол");
 
-        float k = 0;
+        String k = null;
         try {
-            k = in.nextFloat();
-            System.out.println("Вам удалось ввести валидное число типа float: " + k);
+            k = in.next();
+            System.out.println("Вам удалось ввести валидные данные: " + k);
         } catch (InputMismatchException e) {
             System.out.println("Введите корректное дробное число типа float");
-            inputFloat();
+            inputString();
+        }
+        finally {
+            FileWriter writer = new FileWriter("data.csv");
+            writer.write(k);
         }
 
         in.close();
     }
 }
-    }
-}
+
