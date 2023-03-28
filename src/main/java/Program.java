@@ -37,56 +37,44 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         inputString();
+        System.out.println("Данные успешно сохранены в db");
     }
 
     public static void inputString() {
         Scanner in = new Scanner(System.in);
         System.out.println("Введите ваши данные в виде: Фамилия Имя Отчество датарождения номертелефона пол");
 
-//        try {
-//            int element = sc.nextInt();
-//            System.out.println("Element in the given index is :: "+myArray[element]);
-//        } catch(ArrayIndexOutOfBoundsException e) {
-//            System.out.println("The index you have entered is invalid");
-//            System.out.println("Please enter an index number between 0 and 6");
-//        }
         String line = in.nextLine();
         String[] dt = line.split(" ");
-        if (dt[0].isEmpty()) System.out.println("пусто");
+        if (dt[0].isEmpty()) System.out.println("первый элемент пустой");
         try {
-            if (dt[0].isEmpty() || dt[1].isEmpty() || dt[2].isEmpty() || dt[3].isEmpty() || dt[4].isEmpty() || dt[5].isEmpty())
-                throw new ArrayIndexOutOfBoundsException();
+            if (dt[0].isEmpty() || dt[1].isEmpty() || dt[2].isEmpty() || dt[3].isEmpty() || dt[4].isEmpty()
+                    || dt[5].isEmpty()) throw new ArrayIndexOutOfBoundsException();
             }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("введены нулевые значения");
+            System.out.println("введены нулевые значения! - введите 6 значений через пробел");
             inputString();
         }
-
-//            try {
-//                if (line.isEmpty() || dt[0].isEmpty() || dt[1].isEmpty() || dt[0].length() == 0 || dt[1].length() == 0)
-//                    throw new ArrayIndexOutOfBoundsException();
-//    }catch (ArrayIndexOutOfBoundsException e) {
-//                System.out.println("Переделай");
-//            }
 
         String sur = (dt[0]);
         String name = (dt[1]);
         String surN = (dt[2]);
-        String born = (dt[3]);
+        String born = (dt[3]); // 12.05.1987
         String tel = (dt[4]);
         String gender = (dt[5]);
         String f = "f";
         String m = "m";
 
         try {
+            if (born.length() < 10 || born.length() > 10)
+                throw new IllegalAccessException();
 
             if (tel.length() < 10 || tel.length() > 10)
                 throw new RuntimeException();
 
-            if (sur.length() < 1 || name.length() < 1 || surN == null || born == null || tel == null || gender == null)
-                throw new ArrayIndexOutOfBoundsException();
-
             if (gender.length() != 1 || !gender.equals(f) && !gender.equals(m))
                 throw new InvalidPropertiesFormatException("введены неверные данные по полу");
+            if (sur.isEmpty() || name.isEmpty() || surN.isEmpty() || born.isEmpty() || tel.isEmpty()
+                    || gender.isEmpty()) throw new ArrayIndexOutOfBoundsException();
 
         } catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Введите 6 верных аргументов");
@@ -95,14 +83,17 @@ public class Program {
             System.out.println("введите корректно номер телефона 10 цифр подряд, - например 9267004070");
             inputString();
 
+        } catch (IllegalAccessException e) {
+            System.out.println("введите корректно дату рождения, например 11.11.2000");
+            inputString();
+
         } catch (InvalidPropertiesFormatException e) {
             System.out.println("Введите верные данные для gender: один символ f или m");
             inputString();
         }
-
-        System.out.println(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender +
-                " - данные успешно сохранены");
         in.close();
+//        System.out.println(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender +
+//                " - данные успешно сохранены");
 
 //        String k = null;
 //        try {
