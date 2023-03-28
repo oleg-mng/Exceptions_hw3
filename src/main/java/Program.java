@@ -50,27 +50,28 @@ public class Program {
         String born = (dt[3]);
         String tel = (dt[4]);
         String gender = (dt[5]);
+        String f = "f";
+        String m = "m";
         try {
             if (tel.length() < 10 || tel.length() > 10)
                 throw new RuntimeException();
 //            if (sur.length() < 1 || name.length() < 1 || surN == null || born == null || tel == null || gender == null)
 //                throw new ArrayIndexOutOfBoundsException();
-//            if (gender.length() > 1)
-//                throw new InvalidPropertiesFormatException("введены неверные данные по полу");
+            if (gender.length() != 1 || !gender.equals(f) && !gender.equals(m))
+                throw new InvalidPropertiesFormatException("введены неверные данные по полу");
 //            if (gender != "f" && gender != "m")
 //                throw new InvalidPropertiesFormatException("введены неверные данные по полу");
         } catch (RuntimeException e) {
             System.out.println("введите корректно номер телефона 10 цифр подряд, - например 9267004070");
             inputString();
-        }
 
 //        }catch (ArrayIndexOutOfBoundsException e){
 //                System.out.println("Введите 6 верных аргументов");
 //
-//        } catch (InvalidPropertiesFormatException e) {
-//            System.out.println("Введите верные данные по полу: символ латиницей f или m");
-//            inputString();
-//        }
+        } catch (InvalidPropertiesFormatException e) {
+            System.out.println("Введите верные данные по полу: один символ f или m");
+            inputString();
+        }
 
         System.out.println(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender +
                 " - данные успешно сохранены");
