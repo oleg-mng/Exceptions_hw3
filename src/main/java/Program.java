@@ -2,10 +2,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.WriteAbortedException;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Урок 3. Продвинутая работа с исключениями в Java
@@ -37,7 +36,7 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         inputString();
-        System.out.println("Данные успешно сохранены в db");
+        System.out.println("success, - данные успешно сохранены в db");
     }
 
     public static void inputString() {
@@ -50,8 +49,12 @@ public class Program {
         try {
             if (dt[0].isEmpty() || dt[1].isEmpty() || dt[2].isEmpty() || dt[3].isEmpty() || dt[4].isEmpty()
                     || dt[5].isEmpty()) throw new ArrayIndexOutOfBoundsException();
-            }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("введены нулевые значения! - введите 6 значений через пробел");
+            if (!dt[6].isEmpty()) throw new NegativeArraySizeException();
+            }catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("введены нулевые значения! - введите 6 значений через 1 пробел");
+            inputString();
+            }catch (NegativeArraySizeException e){
+            System.out.println("введено более 6-ти значений");
             inputString();
         }
 
@@ -63,6 +66,15 @@ public class Program {
         String gender = (dt[5]);
         String f = "f";
         String m = "m";
+
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("dd.MM.yyyy");
+        try {
+            Date docDate= format.parse(born);
+        } catch (ParseException e) {
+            System.out.println("введите дату рождения в формате \"dd.MM.yyyy\"");
+            inputString();
+        }
 
         try {
             if (born.length() < 10 || born.length() > 10)
@@ -78,6 +90,7 @@ public class Program {
 
         } catch (ArrayIndexOutOfBoundsException e){
                 System.out.println("Введите 6 верных аргументов");
+            inputString();
 
         } catch (RuntimeException e) {
             System.out.println("введите корректно номер телефона 10 цифр подряд, - например 9267004070");
@@ -92,17 +105,7 @@ public class Program {
             inputString();
         }
         in.close();
-//        System.out.println(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender +
-//                " - данные успешно сохранены");
 
-//        String k = null;
-//        try {
-//            k = in.next();
-//            System.out.println("Вам удалось ввести валидные данные: " + k);
-//        } catch (InputMismatchException e) {
-//            System.out.println("Введите корректное дробное число типа float");
-//            inputString();
-//        }
 //        finally {
 //            FileWriter writer = new FileWriter("data.csv");
 //            writer.write(k);
@@ -112,5 +115,8 @@ public class Program {
 //        in.close();
     }
 }
+
+//        System.out.println(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender +
+//                " - данные успешно сохранены");
 
 
