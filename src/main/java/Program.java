@@ -114,16 +114,29 @@ public class Program {
             System.out.println("Введите верные данные для gender: один символ f или m");
             inputString();
         }
+        finally {
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter("data.csv");
+                writer.write(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender);
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+//            try {
+//                writer.write(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            try {
+//                writer.close();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+        }
+
         in.close();
         System.out.println("success, - данные успешно сохранены в db");
-
-//        finally {
-//            FileWriter writer = new FileWriter("data.csv");
-//            writer.write(k);
-//            writer.close();
-//        }
-//
-//        in.close();
     }
 }
 
