@@ -36,7 +36,7 @@ import java.util.*;
 public class Program {
     public static void main(String[] args) {
         inputString();
-        System.out.println("success, - данные успешно сохранены в db");
+//        System.out.println("success, - данные успешно сохранены в db");
     }
 
     public static void inputString() {
@@ -49,17 +49,22 @@ public class Program {
         try {
             if (dt[0].isEmpty() || dt[1].isEmpty() || dt[2].isEmpty() || dt[3].isEmpty() || dt[4].isEmpty()
                     || dt[5].isEmpty()) throw new IndexOutOfBoundsException();
-            if (!dt[6].isEmpty()) throw new NegativeArraySizeException();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("введено 6 значений");
-            inputString();
+            if (dt.length > 6) throw new NegativeArraySizeException();
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            System.out.println("введено 6 значений");
+//            return;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Введены пустые элементы");
-            inputString();
+//            inputString();
+            return;
         } catch (NegativeArraySizeException e) {
             System.out.println("введено более 6-ти значений");
-            inputString();
+//            inputString();
+            return;
+        }catch (NoSuchElementException e){
+            System.out.println();
         }
+
 
         String sur = (dt[0]);
         String name = (dt[1]);
@@ -80,34 +85,37 @@ public class Program {
         }
 
         try {
-            if (born.length() < 10 || born.length() > 10)
-                throw new IllegalAccessException();
+//            if (born.length() < 10 || born.length() > 10)
+//                throw new IllegalAccessException();
 
             if (tel.length() < 10 || tel.length() > 10)
                 throw new RuntimeException();
 
             if (gender.length() != 1 || !gender.equals(f) && !gender.equals(m))
                 throw new InvalidPropertiesFormatException("введены неверные данные по полу");
-            if (sur.isEmpty() || name.isEmpty() || surN.isEmpty() || born.isEmpty() || tel.isEmpty()
-                    || gender.isEmpty()) throw new ArrayIndexOutOfBoundsException();
+//            if (sur.isEmpty() || name.isEmpty() || surN.isEmpty() || born.isEmpty() || tel.isEmpty()
+//                    || gender.isEmpty()) throw new ArrayIndexOutOfBoundsException();
 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Введите 6 верных аргументов");
-            inputString();
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            System.out.println("Введите 6 верных аргументов");
+//            inputString();
+        }catch (NoSuchElementException e){
+                System.out.println();
 
         } catch (RuntimeException e) {
             System.out.println("введите корректно номер телефона 10 цифр подряд, - например 9267004070");
             inputString();
 
-        } catch (IllegalAccessException e) {
-            System.out.println("введите корректно дату рождения, например 11.11.2000");
-            inputString();
+//        } catch (IllegalAccessException e) {
+//            System.out.println("введите корректно дату рождения, например 11.11.2000");
+//            inputString();
 
         } catch (InvalidPropertiesFormatException e) {
             System.out.println("Введите верные данные для gender: один символ f или m");
             inputString();
         }
         in.close();
+        System.out.println("success, - данные успешно сохранены в db");
 
 //        finally {
 //            FileWriter writer = new FileWriter("data.csv");
