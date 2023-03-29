@@ -48,12 +48,15 @@ public class Program {
         if (dt[0].isEmpty()) System.out.println("первый элемент пустой");
         try {
             if (dt[0].isEmpty() || dt[1].isEmpty() || dt[2].isEmpty() || dt[3].isEmpty() || dt[4].isEmpty()
-                    || dt[5].isEmpty()) throw new ArrayIndexOutOfBoundsException();
+                    || dt[5].isEmpty()) throw new IndexOutOfBoundsException();
             if (!dt[6].isEmpty()) throw new NegativeArraySizeException();
-            }catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("введены нулевые значения! - введите 6 значений через 1 пробел");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("введено 6 значений");
             inputString();
-            }catch (NegativeArraySizeException e){
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Введены пустые элементы");
+            inputString();
+        } catch (NegativeArraySizeException e) {
             System.out.println("введено более 6-ти значений");
             inputString();
         }
@@ -70,7 +73,7 @@ public class Program {
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("dd.MM.yyyy");
         try {
-            Date docDate= format.parse(born);
+            Date docDate = format.parse(born);
         } catch (ParseException e) {
             System.out.println("введите дату рождения в формате \"dd.MM.yyyy\"");
             inputString();
@@ -88,8 +91,8 @@ public class Program {
             if (sur.isEmpty() || name.isEmpty() || surN.isEmpty() || born.isEmpty() || tel.isEmpty()
                     || gender.isEmpty()) throw new ArrayIndexOutOfBoundsException();
 
-        } catch (ArrayIndexOutOfBoundsException e){
-                System.out.println("Введите 6 верных аргументов");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Введите 6 верных аргументов");
             inputString();
 
         } catch (RuntimeException e) {
