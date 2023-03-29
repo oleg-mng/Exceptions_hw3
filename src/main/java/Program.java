@@ -1,10 +1,9 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.WriteAbortedException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static java.lang.System.getProperty;
 
 /**
  * Урок 3. Продвинутая работа с исключениями в Java
@@ -36,7 +35,7 @@ import java.util.*;
 public class Program {
     public static void main(String[] args) {
         inputString();
-//        System.out.println("success, - данные успешно сохранены в db");
+        //System.out.println("success, - данные успешно сохранены в db");
     }
 
     public static void inputString() {
@@ -81,12 +80,13 @@ public class Program {
             Date docDate = format.parse(born);
         } catch (ParseException e) {
             System.out.println("введите дату рождения в формате \"dd.MM.yyyy\"");
-            inputString();
+//            inputString();
+            return;
         }
 
         try {
-//            if (born.length() < 10 || born.length() > 10)
-//                throw new IllegalAccessException();
+            if (born.length() < 10 || born.length() > 10)
+                throw new IllegalAccessException();
 
             if (tel.length() < 10 || tel.length() > 10)
                 throw new RuntimeException();
@@ -104,24 +104,36 @@ public class Program {
 
         } catch (RuntimeException e) {
             System.out.println("введите корректно номер телефона 10 цифр подряд, - например 9267004070");
-            inputString();
-
-//        } catch (IllegalAccessException e) {
-//            System.out.println("введите корректно дату рождения, например 11.11.2000");
 //            inputString();
+            return;
+
+        } catch (IllegalAccessException e) {
+            System.out.println("введите корректно дату рождения, например 11.11.2000");
+//            inputString();
+            return;
 
         } catch (InvalidPropertiesFormatException e) {
             System.out.println("Введите верные данные для gender: один символ f или m");
-            inputString();
+//            inputString();
+            return;
         }
-        finally {
-            FileWriter writer = null;
+//            FileWriter writer = null;
+//            try {
+//                writer = new FileWriter("data.csv");
+//                writer.write(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender);
+//                writer.close();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+            File file = new File("dbList.csv");
             try {
-                writer = new FileWriter("data.csv");
-                writer.write(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender);
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+                String lineSeparator = getProperty("line.separator");
+                writer.write(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender + lineSeparator);
+                writer.flush();
                 writer.close();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+
             }
 //            try {
 //                writer.write(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender);
@@ -133,14 +145,10 @@ public class Program {
 //            } catch (IOException e) {
 //                throw new RuntimeException(e);
 //            }
-        }
 
         in.close();
         System.out.println("success, - данные успешно сохранены в db");
     }
 }
-
-//        System.out.println(sur + " " + name + " " + surN + " " + born + " " + tel + " " + gender +
-//                " - данные успешно сохранены");
 
 
